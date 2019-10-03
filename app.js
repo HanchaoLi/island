@@ -1,17 +1,9 @@
-const Koa = require('koa');
-const Router = require('koa-router');
+const Koa = require("koa");
+const InitManager = require('./core/init');
 
 const app = new Koa();
-const router = new Router();
 
-/**
- * ctx: context
- * next: a promise param
- */
-router.get('/classic/latest', (ctx, next) => {
-    ctx.body = {key: 'classic'};
-});
+InitManager.initCore(app);
 
-app.use(router.routes());
 
 app.listen(3000);
