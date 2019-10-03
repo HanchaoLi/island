@@ -1,10 +1,17 @@
 const Koa = require('koa');
+const Router = require('koa-router');
 
 const app = new Koa();
+const router = new Router();
 
-// call test function for each time http successfully sent
-app.use(() => {
-    console.log('server is running!');
+/**
+ * ctx: context
+ * next: a promise param
+ */
+router.get('/classic/latest', (ctx, next) => {
+    ctx.body = {key: 'classic'};
 });
+
+app.use(router.routes());
 
 app.listen(3000);
