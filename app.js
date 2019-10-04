@@ -5,5 +5,4 @@ const app = new Koa();
 
 InitManager.initCore(app);
 
-
 app.listen(3000);

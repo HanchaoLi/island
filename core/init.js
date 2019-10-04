@@ -5,6 +5,7 @@ class InitManager {
   static initCore(app) {
     InitManager.app = app;
     InitManager.initLoadRouters();
+    InitManager.loadHttpException();
   }
   static initLoadRouters() {
     const apiDirectory = `${process.cwd()}/app/api`;
@@ -15,6 +16,10 @@ class InitManager {
         InitManager.app.use(obj.routes());
       }
     }
+  }
+  static loadHttpException() {
+    const errors = require('./httpException');
+    global.errs = errors;
   }
 }
 
