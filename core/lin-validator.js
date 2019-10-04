@@ -78,6 +78,7 @@ class LinValidator {
             }
         }
         if (errorMsgs.length != 0) {
+            console.log(errorMsgs);
             throw new ParameterException(errorMsgs)
         }
         ctx.v = this
