@@ -1,26 +1,31 @@
-const {HttpException, ParameterException} = require('../core/http-exception');
+const {HttpException} = require('../core/http-exception')
 
-const catchError = (ctx, next) => {
+const catchError = async (ctx, next)=>{
     try {
-        await next();
+        await next()
     } catch (error) {
-        if (global.config.environment === 'dev') {
-            throw error;
+        const isHttpException = error instanceof HttpException
+        const isDev = global.config.environment === 'dev'
+        
+        if(isDev && !isHttpException){
+            throw error
         }
-        if (error instanceof HttpException) {
+        
+        if(isHttpException){
             ctx.body = {
-                msg: error.message,
-                error_code: error.errorCode,
-                request: error.requestUrl
-            };
-            ctx.status = error.code;
-        } else {
+                msg:error.msg,
+                error_code:error.errorCode,
+                request:`${ctx.method} ${ctx.path}`
+            }
+            ctx.status = error.code
+        }
+        else{
             ctx.body = {
-                msg: 'we made a mistake, sorry about that',
-                error_code: 99999,
-                request: error.requestUrl
-            };
-            ctx.status = 500;
+                msg: 'we made a mistake O(∩_∩)O~~',
+                error_code: 999,
+                request:`${ctx.method} ${ctx.path}`
+            }
+            ctx.status = 500
         }
     }
 }
