@@ -8,6 +8,7 @@ class HttpException extends Error {
 }
 class ParameterException extends HttpException {
   constructor(msg, errorCode) {
+    super();
     this.code = 400;
     this.msg = msg || "param error";
     this.errorCode = errorCode || 10000;
