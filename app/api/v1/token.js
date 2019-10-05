@@ -30,7 +30,6 @@ router.post('/', async (ctx) => {
     ctx.body = {
         token
     }
-    throw new global.errs.Success();
 });
 
 async function emailLogin(account, secret) {
