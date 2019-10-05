@@ -17,12 +17,13 @@ User.init({
         type: Sequelize.STRING(128),
         unique: true
     },
+    // observation design pattern
     password: {
         type: Sequelize.STRING,
         set(val) {
             const salt = bcrypt.genSaltSync(10);
-            const psw = bcrypt.hashSync(v.get(val), salt);
-            this.setDataValue(psw);
+            const psw = bcrypt.hashSync(val, salt);
+            this.setDataValue('password', psw);
         }
     },
     openid: {
