@@ -51,8 +51,6 @@ const generateToken = function (uid, scope) {
     return token
 }
 
-
-
 module.exports = {
     findMembers,
     generateToken,
