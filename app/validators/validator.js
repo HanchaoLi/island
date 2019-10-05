@@ -5,6 +5,9 @@ const {
 const {
   User
 } = require('../modules/user');
+const {
+  LoginType
+} = require('../lib/enum');
 class PositiveIntegerValidator extends LinValidator {
   constructor() {
     super();
@@ -57,7 +60,7 @@ class RegisterValidator extends LinValidator {
   }
 }
 
-class TokenValidator extends LinkValidator {
+class TokenValidator extends LinValidator {
   constructor() {
     super();
     this.account = [
@@ -73,6 +76,14 @@ class TokenValidator extends LinkValidator {
         max: 128
       })
     ];
+  }
+  validateLoginType(vals) {
+    if (!vals.body.type) {
+      throw new Error('missing login type!');
+    }
+    if (!LoginType.isThisType(vals.body.type)) {
+      throw new Error('type param is illegal!');
+    }
   }
 }
 

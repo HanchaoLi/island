@@ -23,8 +23,28 @@ class Success extends HttpException {
     this.errorCode = errorCode || 0;
   }
 }
+
+class NotFoud extends HttpException {
+  constructor(msg, errorCode) {
+    super();
+    this.code = 404;
+    this.msg = msg || " missing resource";
+    this.errorCode = errorCode || 10000;
+  }
+}
+
+class AuthFailed extends HttpException {
+  constructor(msg, errorCode) {
+    super();
+    this.code = 401;
+    this.msg = msg || "grant access failed";
+    this.errorCode = errorCode || 10000;
+  }
+}
 module.exports = {
   HttpException,
   ParameterException,
-  Success
+  Success,
+  NotFoud,
+  AuthFailed
 };

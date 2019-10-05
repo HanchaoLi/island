@@ -57,7 +57,7 @@ class LinValidator {
             this[key].forEach(value => {
                 const isRuleType = value instanceof Rule
                 if (!isRuleType) {
-                    throw new Error('验证数组必须全部为Rule类型')
+                    throw new Error('validate array must be Rule type')
                 }
             })
             return true
@@ -98,7 +98,7 @@ class LinValidator {
                 await this[key](this.data)
                 result = new RuleResult(true)
             } catch (error) {
-                result = new RuleResult(false, error.msg || error.message || '参数错误')
+                result = new RuleResult(false, error.msg || error.message || 'param error')
             }
             // 函数验证
         } else {
@@ -218,7 +218,7 @@ class RuleField {
             if (allowEmpty) {
                 return new RuleFieldResult(true, '', defaultValue)
             } else {
-                return new RuleFieldResult(false, '字段是必填参数')
+                return new RuleFieldResult(false, ' field must not be empty')
             }
         }
 

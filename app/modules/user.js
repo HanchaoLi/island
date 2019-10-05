@@ -8,7 +8,21 @@ const {
 } = require('sequelize');
 
 class User extends Model {
-
+    static async verifyEmailPassword(email, plainPassword) {
+        const user = await User.findOne({
+            where: {
+                email
+            }
+        });
+        if (!user) {
+            throw new global.errs.AuthFailed('user does not exist');
+        }
+        const correct = bcrypt.compareSync(plainPassword, user.password);
+        if (!correct) {
+            throw new global.errs.AuthFailed('password not correct');
+        }
+        return user;
+    }
 }
 
 User.init({
