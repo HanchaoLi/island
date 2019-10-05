@@ -17,7 +17,7 @@ const sequelize = new Sequelize(dbName, user, password, {
         paranoid: true,
         underscored: true
     }
-    
+
 });
 
 sequelize.sync();
@@ -25,4 +25,3 @@ sequelize.sync();
 module.exports = {
     sequelize
 }
-

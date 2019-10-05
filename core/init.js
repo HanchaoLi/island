@@ -1,8 +1,8 @@
 const requireDirectory = require('require-directory')
 const Router = require('koa-router')
 
-class InitManager{
-    static initCore(app){
+class InitManager {
+    static initCore(app) {
         InitManager.app = app
         InitManager.initLoadRouters()
         InitManager.loadHttpException()
@@ -15,21 +15,21 @@ class InitManager{
         global.config = config
     }
 
-    static initLoadRouters(){
+    static initLoadRouters() {
         //path config
         const apiDirectory = `${process.cwd()}/app/api`
         requireDirectory(module, apiDirectory, {
             visit: whenLoadModule
         })
-        
+
         function whenLoadModule(obj) {
-            if(obj instanceof Router ){
+            if (obj instanceof Router) {
                 InitManager.app.use(obj.routes())
             }
         }
     }
 
-    static loadHttpException(){
+    static loadHttpException() {
         const errors = require('./http-exception')
         global.errs = errors
     }

@@ -23,8 +23,8 @@ class Success extends HttpException {
     this.errorCode = errorCode || 0;
   }
 }
-module.exports = { 
-    HttpException, 
-    ParameterException,
-    Success
+module.exports = {
+  HttpException,
+  ParameterException,
+  Success
 };
