@@ -9,12 +9,7 @@ const {
 const {Auth} = require('../../../middlewares/auth');
 
 router.get('/latest', new Auth().m, async (ctx, next) => {
-    // const v = await new PositiveIntegerValidator().validate(ctx, {
-    //     id: 'id'
-    // });
-    // ctx.body = {
-    //     key: 'classic'
-    // };
+    ctx.body = ctx.auth.uid;
 });
 
 module.exports = router;

@@ -11,7 +11,7 @@ class ParameterException extends HttpException {
     super();
     this.code = 400;
     this.msg = msg || "param error";
-    this.errorCode = errorCode || 10000;
+    this.errorCode = errorCode || 10002;
   }
 }
 
@@ -29,7 +29,7 @@ class NotFoud extends HttpException {
     super();
     this.code = 404;
     this.msg = msg || " missing resource";
-    this.errorCode = errorCode || 10000;
+    this.errorCode = errorCode || 10003;
   }
 }
 
@@ -38,7 +38,16 @@ class AuthFailed extends HttpException {
     super();
     this.code = 401;
     this.msg = msg || "grant access failed";
-    this.errorCode = errorCode || 10000;
+    this.errorCode = errorCode || 10004;
+  }
+}
+
+class Forbbiden extends HttpException {
+  constructor(msg, errorCode) {
+    super();
+    this.code = 403;
+    this.msg = msg || "you are forbbiden to view this page";
+    this.errorCode = errorCode || 10006;
   }
 }
 module.exports = {
@@ -46,5 +55,6 @@ module.exports = {
   ParameterException,
   Success,
   NotFoud,
-  AuthFailed
+  AuthFailed,
+  Forbbiden
 };
