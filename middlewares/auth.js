@@ -1,8 +1,10 @@
 const basicAuth = require('basic-auth');
 const jwt = require('jsonwebtoken');
 class Auth {
-    constructor() {
-
+    constructor(level) {
+        this.level = level || 1;
+        Auth.USER = 8;
+        Auth.ADMIN = 16;
     }
     get m() {
         return async (ctx, next) => {
@@ -17,6 +19,10 @@ class Auth {
                 if (error.name == 'TokenExpiredError') {
                     errorMsg = 'token has expired'
                 }
+                throw new global.errs.Forbbiden(errorMsg);
+            }
+            if (decode.scope < this.level) {
+                errorMsg = 'not enough access level';
                 throw new global.errs.Forbbiden(errorMsg);
             }
             ctx.auth = {
