@@ -16,9 +16,10 @@ class WXManager {
         if (result.status != 200) {
             throw new global.errs.AuthFailed('opendid failed');
         }
-        const errCode = result.data.errcode;
-        if (result.data.errCode !== 0) {
-            throw new global.errs.AuthFailed('opendid failed:' + errCode);
+        const errcode = result.data.errcode;
+        const errmsg = result.data.errmsg;
+        if (errcode) {
+            throw new global.errs.AuthFailed('opendid failed:' + errcode + " " + errmsg);
         }
         let user = await User.getUserByOpenid(result.data.openid);
         if (!user) {
