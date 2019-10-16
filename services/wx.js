@@ -11,7 +11,7 @@ class WXManager {
         global.config.wx.appSecret,
         code);
 
-        const result = axios.get(url);
+        const result = await axios.get(url);
         console.log(url);
         if (result.status != 200) {
             throw new global.errs.AuthFailed('opendid failed');
