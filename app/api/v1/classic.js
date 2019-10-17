@@ -13,13 +13,19 @@ const {
     Auth
 } = require('../../../middlewares/auth');
 
+const {
+    Art
+} = require('../../modules/art');
+
 router.get('/latest', new Auth().m, async (ctx, next) => {
     const flow = await Flow.findOne({
-        order:[
+        order: [
             ['index', 'DESC']
         ]
     });
-    ctx.body = flow;
+    const art = await Art.getData(flow.art_id, flow.type);
+    art.dataValues.index = flow.index;
+    ctx.body = art;
 });
 
 module.exports = router;
