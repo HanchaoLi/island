@@ -50,11 +50,30 @@ class Forbbiden extends HttpException {
     this.errorCode = errorCode || 10006;
   }
 }
+
+class LikeError extends HttpException {
+  constructor(msg, errorCode) {
+    super();
+    this.code = 405;
+    this.msg = msg || "you already liked this";
+    this.errorCode = errorCode || 10007;
+  }
+}
+class DislikeError extends HttpException {
+  constructor(msg, errorCode) {
+    super();
+    this.code = 406;
+    this.msg = msg || "you already cancelled this like";
+    this.errorCode = errorCode || 10008;
+  }
+}
 module.exports = {
   HttpException,
   ParameterException,
   Success,
   NotFoud,
   AuthFailed,
-  Forbbiden
+  Forbbiden,
+  LikeError,
+  DislikeError
 };
