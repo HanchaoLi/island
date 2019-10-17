@@ -18,11 +18,7 @@ const {
 } = require('../../modules/art');
 
 router.get('/latest', new Auth().m, async (ctx, next) => {
-    const flow = await Flow.findOne({
-        order: [
-            ['index', 'DESC']
-        ]
-    });
+    const flow = await Flow.getLatestFlow();
     const art = await Art.getData(flow.art_id, flow.type);
     art.setDataValue('index', flow.index);
     ctx.body = art;
