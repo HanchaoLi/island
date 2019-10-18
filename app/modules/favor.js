@@ -30,7 +30,7 @@ class Favor extends Model {
                 uid
             }, {transaction: t});
             const art = await Art.getData(art_id, type);
-            const x = await art.increment('fav_nums', {by: 1, transaction: t});
+            await art.increment('fav_nums', {by: 1, transaction: t});
         });
     }
     static async dislike(art_id, type, uid) {
