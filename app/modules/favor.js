@@ -12,6 +12,15 @@ const {Art} = require('./art');
  * thumbs up/down bussiness logic
  */
 class Favor extends Model {
+
+    /**
+     * thumbs up function, insert record into favor table and update related
+     * table, like movie, music.
+     * 
+     * @param {Integer} art_id 
+     * @param {Integer} type 
+     * @param {Integer} uid 
+     */
     static async like(art_id, type, uid) {
         const favor = await Favor.findOne({
             where: {
@@ -33,6 +42,15 @@ class Favor extends Model {
             await art.increment('fav_nums', {by: 1, transaction: t});
         });
     }
+
+    /**
+     * thumbs down function, delete record in favor table and update related
+     * table, like movie, music.
+     * 
+     * @param {Integer} art_id 
+     * @param {Integer} type 
+     * @param {Integer} uid 
+     */
     static async dislike(art_id, type, uid) {
         const favor = await Favor.findOne({
             where: {
@@ -54,6 +72,13 @@ class Favor extends Model {
         });
     }
 
+    /**
+     * return if current user already liked this publication
+     * @param {Integer} art_id 
+     * @param {Integer} type 
+     * @param {Integer} uid 
+     * @returns true, user already liked, false, user haven't been liked
+     */
     static async userLikeIt(art_id, type, uid) {
         const favor = await Favor.findOne({
             where: {

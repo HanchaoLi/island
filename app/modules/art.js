@@ -5,6 +5,12 @@ const {
 } = require('../modules/classic');
 
 class Art {
+
+    /**
+     * get table instance based on art id and type
+     * @param {*} art_id 
+     * @param {*} type 
+     */
     static async getData(art_id, type) {
         let art = null;
         const finder = {
