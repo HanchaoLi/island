@@ -7,6 +7,10 @@ const {
 } = require('../../modules/flow');
 
 const {
+    Favor
+} = require('../../modules/favor');
+
+const {
     PositiveIntegerValidator
 } = require('../../validators/validator');
 const {
@@ -20,7 +24,9 @@ const {
 router.get('/latest', new Auth().m, async (ctx, next) => {
     const flow = await Flow.getLatestFlow();
     const art = await Art.getData(flow.art_id, flow.type);
+    const likeLatest = await Favor.userLikeIt(flow.art_id, flow.type, ctx.auth.uid);
     art.setDataValue('index', flow.index);
+    art.setDataValue('like_status', likeLatest);
     ctx.body = art;
 });
 
