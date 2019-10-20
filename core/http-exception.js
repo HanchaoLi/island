@@ -27,7 +27,7 @@ class Success extends HttpException {
 class NotFoud extends HttpException {
   constructor(msg, errorCode) {
     super();
-    this.code = 404;
+    this.code = 401;
     this.msg = msg || " missing resource";
     this.errorCode = errorCode || 10003;
   }
