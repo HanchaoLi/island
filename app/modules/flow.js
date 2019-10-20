@@ -15,6 +15,22 @@ class Flow extends Model {
         });
         return flow;
     }
+    static async getNextFlow(index) {
+        const flow = await Flow.findOne({
+            where: {
+                index: index + 1
+            }
+        });
+        return flow;
+    }
+    static async getPreviousFlow(index) {
+        const flow = await Flow.findOne({
+            where: {
+                index: index - 1
+            }
+        });
+        return flow;
+    }
 }
 
 Flow.init({
