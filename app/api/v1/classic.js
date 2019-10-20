@@ -19,7 +19,8 @@ const {
 } = require('../../modules/art');
 
 const {
-    PositiveIntegerValidator
+    PositiveIntegerValidator,
+    ClassicValidator
 } = require('../../validators/validator');
 
 router.get('/latest', new Auth().m, async (ctx, next) => {
@@ -61,6 +62,21 @@ router.get('/:index/previous', new Auth().m, async ctx =>{
     art.setDataValue('index', flow.index);
     art.setDataValue('like_status', likePrevious);
     ctx.body = art;
+});
+
+router.get('/:type/:id/favor', new Auth().m, async ctx =>{
+    const v = await new ClassicValidator().validate(ctx);
+    const id = v.get('path.id');
+    const type = v.get('path.type');
+    const art = await Art.getData(id, type);
+    if (!art) {
+        throw new global.errs.NotFound();
+    }
+    const like = await Favor.userLikeIt(id, type, ctx.auth.uid);
+    ctx.body = {
+        fav_nums: art.fav_nums,
+        like_status: like
+    }
 });
 
 module.exports = router;

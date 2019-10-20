@@ -97,10 +97,12 @@ class NotEmptyValidator extends LinValidator {
 }
 
 function checkType(vals) {
-  if (!vals.body.type) {
+  let type = vals.body.type || vals.path.type;
+  if (!type) {
     throw new Error('type must be param');
   }
-  if (!LoginType.isThisType(vals.body.type)) {
+  type = parseInt(type);
+  if (!LoginType.isThisType(type)) {
     throw new Error('type param is not legal');
   }
 }
@@ -111,10 +113,15 @@ class LikeValidator extends PositiveIntegerValidator {
   }
 }
 
+class ClassicValidator extends LikeValidator {
+
+}
+
 module.exports = {
   PositiveIntegerValidator,
   RegisterValidator,
   TokenValidator,
   NotEmptyValidator,
-  LikeValidator
+  LikeValidator,
+  ClassicValidator
 }
