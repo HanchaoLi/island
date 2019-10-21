@@ -68,20 +68,27 @@ router.get('/:type/:id/favor', new Auth().m, async ctx =>{
     const v = await new ClassicValidator().validate(ctx);
     const id = v.get('path.id');
     const type = parseInt(v.get('path.type'));
-    const art = await Art.getData(id, type);
-    if (!art) {
-        throw new global.errs.NotFound();
-    }
-    const like = await Favor.userLikeIt(id, type, ctx.auth.uid);
+    const artDetail = await new Art(id, type).getDetail(ctx.auth.uid);
     ctx.body = {
-        fav_nums: art.fav_nums,
-        like_status: like
+        art: artDetail.art,
+        like_status: artDetail.like_status
     }
 });
 
 router.get('/favor', new Auth().m, async ctx => {
     const uid = ctx.auth.uid;
     ctx.body = await Favor.getMyClassicFavors(uid);
+});
+
+router.get('/:type/:id', new Auth().m, async ctx => {
+    const v = await new ClassicValidator().validate(ctx);
+    const id = v.get('path.id');
+    const type = parseInt(v.get('path.type'));
+    const artDetail = await new Art(id, type).getDetail(ctx.auth.uid);
+    ctx.body = {
+        art: artDetail.art,
+        like_status: artDetail.like_status
+    }
 });
 
 module.exports = router;
