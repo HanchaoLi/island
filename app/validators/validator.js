@@ -130,6 +130,7 @@ class LikeValidator extends PositiveIntegerValidator {
   constructor() {
     super();
     const checker = new Checker(ArtType);
+    // bind current object to current validator
     this.validateType = checker.check.bind(checker);
   }
 }
