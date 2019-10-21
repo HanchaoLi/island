@@ -6,7 +6,8 @@ const {
   User
 } = require('../modules/user');
 const {
-  LoginType
+  LoginType,
+  ArtType
 } = require('../lib/enum');
 class PositiveIntegerValidator extends LinValidator {
   constructor() {
@@ -106,10 +107,30 @@ function checkType(vals) {
     throw new Error('type param is not legal');
   }
 }
+
+class Checker {
+  constructor(type) {
+    this.enumType = type;
+  }
+
+  check(vals) {
+    let type = vals.body.type || vals.path.type;
+    if (!type) {
+      throw new Error('type must be param');
+    }
+    type = parseInt(type);
+
+    if (!this.enumType.isThisType(type)) {
+      throw new Error('type param is not legal');
+    }
+  }
+}
+
 class LikeValidator extends PositiveIntegerValidator {
   constructor() {
     super();
-    this.validateType = checkType;
+    const checker = new Checker(ArtType);
+    this.validateType = checker.check.bind(checker);
   }
 }
 

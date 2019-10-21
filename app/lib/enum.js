@@ -15,6 +15,15 @@ function isThisType(val) {
     return false;
 }
 
+const ArtType = {
+    MOVIE: 100,
+    MUSIC: 200,
+    SENTENCE: 300,
+    BOOK: 400,
+    isThisType
+}
+
 module.exports = {
-    LoginType
+    LoginType,
+    ArtType
 }
