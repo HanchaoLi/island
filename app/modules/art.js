@@ -11,8 +11,6 @@ const {
     Music
 } = require('./classic');
 
-const {Favor} = require('./favor');
-
 class Art {
 
     constructor(art_id, type) {
@@ -25,6 +23,9 @@ class Art {
         if (!art) {
             throw new global.errs.NotFound();
         }
+        const {
+            Favor
+        } = require('./favor');
         const like = await Favor.userLikeIt(this.art_id, this.type, uid);
         return {
             art,

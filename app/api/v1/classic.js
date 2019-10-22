@@ -69,10 +69,8 @@ router.get('/:type/:id/favor', new Auth().m, async ctx =>{
     const id = v.get('path.id');
     const type = parseInt(v.get('path.type'));
     const artDetail = await new Art(id, type).getDetail(ctx.auth.uid);
-    ctx.body = {
-        art: artDetail.art,
-        like_status: artDetail.like_status
-    }
+    artDetail.art.setDataValue('like_status', artDetail.art.like_status);
+    ctx.body = artDetail.art;
 });
 
 router.get('/favor', new Auth().m, async ctx => {
@@ -85,10 +83,8 @@ router.get('/:type/:id', new Auth().m, async ctx => {
     const id = v.get('path.id');
     const type = parseInt(v.get('path.type'));
     const artDetail = await new Art(id, type).getDetail(ctx.auth.uid);
-    ctx.body = {
-        art: artDetail.art,
-        like_status: artDetail.like_status
-    }
+    artDetail.art.setDataValue('like_status', artDetail.art.like_status);
+    ctx.body = artDetail.art;
 });
 
 module.exports = router;
