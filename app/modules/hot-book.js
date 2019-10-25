@@ -22,7 +22,8 @@ class HotBook extends Model {
         const favors = await Favor.findAll({
             where: {
                 art_id: {
-                    [Op.in]: ids
+                    [Op.in]: ids,
+                    type: 400
                 }
             },
             group: ['art_id'],
@@ -40,7 +41,7 @@ class HotBook extends Model {
                 count = favor.get('count');
             }
         });
-        book.setDataValues('count', count);
+        book.setDataValue('count', count);
         return book;
     }
 }
