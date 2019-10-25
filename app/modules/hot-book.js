@@ -3,7 +3,8 @@ const {
 } = require('../../core/db');
 const {
     Sequelize,
-    Model
+    Model,
+    Op
 } = require('sequelize');
 const {Favor} = require('./favor');
 
@@ -18,12 +19,16 @@ class HotBook extends Model {
         books.forEach((book) => {
             ids.push(book.id);
         });
-        Favor.findAll({
+        const favors = await Favor.findAll({
             where: {
-                [Op.in]: ids
-            }
+                art_id: {
+                    [Op.in]: ids
+                }
+            },
+            group: ['art_id'],
+            attributes: ['art_id', [Sequelize.fn('COUNT', '*'), 'count']]
         });
-        
+        return favors;
     }
 
 }
@@ -34,4 +39,11 @@ HotBook.init({
     image: Sequelize.STRING,
     author: Sequelize.STRING,
     title: Sequelize.STRING
+}, {
+    sequelize,
+    tableName: 'hot_book'
 });
+
+module.exports = {
+    HotBook
+}

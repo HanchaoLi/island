@@ -1,9 +1,12 @@
 const Router = require('koa-router');
 const router = new Router();
 
-router.get('/v1/book/hot_list', (ctx, next) => {
+const {HotBook} = require('../../modules/hot-book');
+
+router.get('/v1/book/hot_list', async (ctx, next) => {
+    const favors = await HotBook.getAll();
     ctx.body = {
-        key: 'book'
+        books: favors
     };
 });
 
