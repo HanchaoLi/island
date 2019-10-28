@@ -73,17 +73,17 @@ class Art {
         const scope = 'bh';
         switch (type) {
             case 100:
-                arts = await Movie.scope(scope).findOne({
+                arts = await Movie.scope(scope).findAll({
                     finder
                 });
                 break;
             case 200:
-                arts = await Music.scope(scope).findOne({
+                arts = await Music.scope(scope).findAll({
                     finder
                 });
                 break;
             case 300:
-                arts = await Sentence.scope(scope).findOne({
+                arts = await Sentence.scope(scope).findAll({
                     finder
                 });
                 break;
