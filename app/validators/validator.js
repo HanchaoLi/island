@@ -152,6 +152,18 @@ class LikeValidator extends PositiveIntegerValidator {
   }
 }
 
+class AddShortCommentValidator extends PositiveIntegerValidator {
+  constructor() {
+    super();
+    this.content = [
+      new Rule('isLength','must be 1 - 24 character', {
+        min: 1,
+        max: 24
+      });
+    ];
+  }
+}
+
 class ClassicValidator extends LikeValidator {
 
 }
@@ -163,5 +175,6 @@ module.exports = {
   NotEmptyValidator,
   LikeValidator,
   ClassicValidator,
-  SearchValidator
+  SearchValidator,
+  AddShortCommentValidator
 }

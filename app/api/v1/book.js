@@ -5,7 +5,8 @@ const router = new Router({
 
 const {
     PositiveIntegerValidator,
-    SearchValidator
+    SearchValidator,
+    AddShortCommentValidator
 } = require('../../validators/validator');
 const {
     HotBook
@@ -54,6 +55,13 @@ router.get('/:book_id/count', new Auth().m, async ctx => {
     ctx.body = {
         favor
     };
+});
+
+router.get('/add/short_comment', new Auth().m, async ctx => {
+    const v = await new AddShortCommentValidator().validate(ctx,{
+        id: 'book_id'
+    });
+    
 });
 
 module.exports = router;
