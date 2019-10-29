@@ -18,8 +18,12 @@ const {
     Favor
 } = require('../../modules/favor');
 const {
+    Comment
+} = require('../../modules/book-comment');
+const {
     Auth
 } = require('../../../middlewares/auth');
+const {success} = require('../../lib/helper');
 
 router.get('/hot_list', async (ctx, next) => {
     const books = await HotBook.getAll();
@@ -57,11 +61,12 @@ router.get('/:book_id/count', new Auth().m, async ctx => {
     };
 });
 
-router.get('/add/short_comment', new Auth().m, async ctx => {
+router.post('/add/short_comment', new Auth().m, async ctx => {
     const v = await new AddShortCommentValidator().validate(ctx,{
         id: 'book_id'
     });
-    
+    Comment.addComment(v.get('body.book_id'), v.get('body.content'));
+    success();
 });
 
 module.exports = router;

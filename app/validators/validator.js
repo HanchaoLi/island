@@ -159,7 +159,7 @@ class AddShortCommentValidator extends PositiveIntegerValidator {
       new Rule('isLength','must be 1 - 24 character', {
         min: 1,
         max: 24
-      });
+      })
     ];
   }
 }
