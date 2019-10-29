@@ -88,9 +88,7 @@ class Art {
                 });
                 break;
             case 400:
-
                 break;
-
             default:
                 break;
         }
@@ -127,9 +125,18 @@ class Art {
                 });
                 break;
             case 400:
-
+                const {
+                    Book
+                } = require('./book');
+                art = await Book.scope(scope).findOne({
+                    finder
+                });
+                if (!art) {
+                    art = await Book.create({
+                        id: art_id
+                    });
+                }
                 break;
-
             default:
                 break;
         }

@@ -27,15 +27,13 @@ const {success} = require('../../lib/helper');
 
 router.get('/hot_list', async (ctx, next) => {
     const books = await HotBook.getAll();
-    ctx.body = {
-        books: books
-    };
+    ctx.body = books;
 });
 
 router.get('/:id/detail', async (ctx, next) => {
     const v = await new PositiveIntegerValidator().validate(ctx);
-    const book = await new Book(v.get('path.id'));
-    ctx.body = await book.detail();
+    const book = await new Book();
+    ctx.body = await book.detail(v.get('path.id'));
 });
 
 router.get('/search', async (ctx, next) => {
@@ -51,7 +49,7 @@ router.get('/favor/count', new Auth().m, async ctx => {
     };
 });
 
-router.get('/:book_id/count', new Auth().m, async ctx => {
+router.get('/:book_id/favor', new Auth().m, async ctx => {
     const v = await new PositiveIntegerValidator().validate(ctx, {
         id: 'book_id'
     });
